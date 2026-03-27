@@ -1,0 +1,198 @@
+---
+import { Picture } from 'astro:assets'
+import Checklist from './Checklist.astro'
+import ChecklistItem from './ChecklistItem.astro'
+
+interface Props {
+  image?: ImageMetadata | Promise<{ default: ImageMetadata }>
+  imageContain?: boolean
+  title: string
+  price: string
+  pricePer?: string
+  description?: string
+  checklist?: string[]
+  extra?: string | string[]
+  color?: 'primary' | 'dark'
+}
+
+const image = Astro.props.image
+---
+
+<div class="pricing-card" class:list={[Astro.props.color]}>
+  {
+    image && (
+      <Picture
+        src={image}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        height={148}
+        widths={[300, 600]}
+        class:list={{ contain: Astro.props.imageContain }}
+      />
+    )
+  }
+  <h3>{Astro.props.title}</h3>
+  <div class="pricing-card__price">
+    <span class="price"
+      >€{Astro.props.price}{Astro.props.pricePer && <span class="per">{Astro.props.pricePer}</span>}</span
+    >
+    <span class="vat">incl. VAT</span>
+  </div>
+  {Astro.props.description && <p class="description">{Astro.props.description}</p>}
+  {
+    Astro.slots.has('default') && (
+      <div class="description">
+        <slot />
+      </div>
+    )
+  }
+  {(Astro.props.checklist || Astro.props.extra) && <hr />}
+  {
+    Astro.props.checklist && (
+      <Checklist>
+        {Astro.props.checklist.map((item) => (
+          <ChecklistItem>{item}</ChecklistItem>
+        ))}
+      </Checklist>
+    )
+  }
+  {
+    Astro.props.extra && Array.isArray(Astro.props.extra) ? (
+      Astro.props.extra.map((d) => <p class="pricing-card__extra">{d}</p>)
+    ) : (
+      <p class="pricing-card__extra">{Astro.props.extra}</p>
+    )
+  }
+</div>
+
+<style lang="scss" is:global>
+  @use '../styles/text-styles';
+  @use '../styles/charter';
+
+  .pricing-card {
+    display: flex;
+    flex-direction: column;
+    background: charter.$neutrals100;
+    padding: 32px 24px;
+    border-radius: 8px;
+    border: solid 1px charter.$primary300;
+    width: 274px;
+    gap: 24px;
+    box-shadow: 0 1px 4px 0 rgba(25, 33, 61, 0.08);
+
+    &.primary {
+      > h3 {
+        color: charter.$primary500;
+      }
+
+      > *,
+      .vat,
+      > .pricing-card__price .per {
+        color: charter.$primary800;
+      }
+    }
+
+    &.dark {
+      background: charter.$primary800;
+      border-color: transparent;
+
+      .description {
+        color: charter.$primary50;
+      }
+
+      > *,
+      .vat {
+        color: charter.$primary50;
+      }
+
+      > .pricing-card__price {
+        .per {
+          color: charter.$primary50;
+        }
+      }
+
+      hr {
+        border-top-color: charter.$primary200;
+      }
+
+      .checklist {
+        svg path[fill='#fff'] {
+          fill: charter.$primary800;
+        }
+      }
+    }
+
+    > h3 {
+      @include text-styles.heading4;
+      color: charter.$primary800;
+    }
+
+    .vat {
+      @include text-styles.display2SemiBold;
+      line-height: 18px;
+      color: charter.$primary800;
+    }
+
+    > .pricing-card__price {
+      display: flex;
+      gap: 16px;
+      flex-direction: column;
+
+      .price {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        @include text-styles.display8SemiBold;
+        line-height: 24px;
+      }
+
+      .per {
+        @include text-styles.display1SemiBold;
+        color: charter.$primary500;
+      }
+    }
+
+    > .pricing-card__extra {
+      @include text-styles.display2SemiBold;
+      color: charter.$primary500;
+
+      & + .pricing-card__extra {
+        margin-top: -24px;
+      }
+    }
+
+    > .description {
+      @include text-styles.paragraphDefaultRegular;
+      color: charter.$primary800;
+    }
+
+    > div.description {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    hr {
+      border: 0;
+      border-top: solid 1px charter.$primary100;
+    }
+
+    picture img {
+      object-fit: cover;
+      height: 148px !important;
+      object-position: center;
+      width: 100%;
+
+      &.contain {
+        object-fit: contain;
+      }
+    }
+
+    .checklist {
+      margin: 0;
+      padding-top: 24px;
+    }
+  }
+</style>

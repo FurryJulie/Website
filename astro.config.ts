@@ -4,9 +4,7 @@ import favicons from 'astro-favicons'
 import vue from '@astrojs/vue'
 import Icons from 'unplugin-icons/vite'
 
-import brix from './utils/brix-icon-loader.ts'
-
-import tailwindcss from '@tailwindcss/vite'
+import brix, { brixFilled } from './utils/brix-icon-loader.ts'
 
 // deno-lint-ignore no-process-global
 const getenv = (name: string) => (typeof Deno !== 'undefined' ? Deno.env.get(name) : process.env[name])
@@ -28,7 +26,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [Icons({ compiler: 'vue3', customCollections: { brix } }), tailwindcss()]
+    plugins: [Icons({ compiler: 'vue3', customCollections: { brix, brixFilled } })]
   },
 
   experimental: {

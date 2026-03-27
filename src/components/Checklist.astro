@@ -1,0 +1,77 @@
+---
+interface Props {
+  columns?: boolean
+  primary?: boolean
+  row?: boolean
+}
+
+const isColumns = Astro.props.columns ?? false
+---
+
+{
+  isColumns ? (
+    <div class="checklist columns" class:list={{ primary: Astro.props.primary }}>
+      <ul class="">
+        <slot />
+      </ul>
+    </div>
+  ) : (
+    <ul class="checklist" class:list={{ primary: Astro.props.primary, row: Astro.props.row }}>
+      <slot />
+    </ul>
+  )
+}
+
+<style lang="scss" is:global>
+  @use '../styles/charter';
+  @use '../styles/text-styles';
+
+  .checklist {
+    margin-top: 48px;
+
+    &.primary li svg {
+      color: charter.$primary500;
+    }
+  }
+
+  .checklist ul,
+  ul.checklist {
+    list-style: none;
+  }
+
+  // Non-columns mode
+  ul.checklist {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &.row {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+
+      @media (max-width: 600px) {
+        flex-direction: column;
+      }
+    }
+  }
+
+  // Columns mode
+  .checklist.columns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    > ul {
+      display: grid;
+      grid-template-columns: 270px 270px;
+      gap: 24px 14px;
+
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+</style>
