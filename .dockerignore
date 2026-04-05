@@ -1,0 +1,6 @@
+/.astro
+/.idea
+/dist
+/node_modules
+.env.local
+/utils/**/*.svg
