@@ -126,4 +126,3 @@ jobs:
         run: |
           kubectl -n website-next set image deployment/website-next website-next=ghcr.io/${{ github.repository }}:sha-${GITHUB_SHA::7}
           kubectl -n website-next rollout status deployment/website-next
-
