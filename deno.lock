@@ -5,6 +5,7 @@
     "npm:@astrojs/vue@^5.1.1": "5.1.1_astro@5.14.4__typescript@5.9.3__sass-embedded@1.93.2__vite@6.3.6___sass-embedded@1.93.2___picomatch@4.0.3__zod@3.25.76_vue@3.5.22__typescript@5.9.3_vite@6.3.6__sass-embedded@1.93.2__picomatch@4.0.3_sass-embedded@1.93.2_typescript@5.9.3",
     "npm:@eslint/js@^9.36.0": "9.37.0",
     "npm:@iconify-json/cib@^1.2.3": "1.2.3",
+    "npm:@iconify-json/lucide@^1.2.101": "1.2.101",
     "npm:@iconify-json/mdi@^1.2.3": "1.2.3",
     "npm:@iconify-json/ri@^1.2.5": "1.2.6",
     "npm:@iconify/tools@*": "4.1.4",
@@ -35,6 +36,7 @@
     "npm:rollup-plugin-visualizer@^6.0.5": "6.0.5",
     "npm:sass-embedded@^1.93.2": "1.93.2",
     "npm:sharp@~0.34.4": "0.34.4",
+    "npm:tailwindcss@^4.2.2": "4.2.2",
     "npm:typescript-eslint@^8.45.0": "8.46.0_eslint@9.37.0_typescript@5.9.3_@typescript-eslint+parser@8.46.0__eslint@9.37.0__typescript@5.9.3",
     "npm:typescript@^5.9.3": "5.9.3",
     "npm:unplugin-icons@^22.5.0": "22.5.0",
@@ -647,6 +649,12 @@
     },
     "@iconify-json/cib@1.2.3": {
       "integrity": "sha512-MMvRXVTHt82z3bYN19JDAjv/X8OBNC/1B3I334SV/1nyhdPeeyvJZVoI1cGuNqYznBjMnWxKPtIhhiVgGQ1CzQ==",
+      "dependencies": [
+        "@iconify/types"
+      ]
+    },
+    "@iconify-json/lucide@1.2.101": {
+      "integrity": "sha512-JUN7uuSLRG3GK/9c5b8cK9e7sL6EAWDaASIwBOd0zUeKS0ACcokJubo2RMQHyVUVpd8mYkrR3Zd2mkH9ghhw1Q==",
       "dependencies": [
         "@iconify/types"
       ]
@@ -5540,6 +5548,7 @@
       "dependencies": [
         "npm:@astrojs/vue@^5.1.1",
         "npm:@iconify-json/cib@^1.2.3",
+        "npm:@iconify-json/lucide@^1.2.101",
         "npm:@iconify-json/mdi@^1.2.3",
         "npm:@iconify-json/ri@^1.2.5",
         "npm:@iconify/tools@^4.1.4",
