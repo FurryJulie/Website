@@ -99,8 +99,9 @@ jobs:
       - name: Set up kubectl
         uses: azure/setup-kubectl@v4
 
-      - name: Configure kubeconfig
+      - name: Deploy
         run: |
+          set -x
           mkdir -p ~/.kube
           cat <<EOF > ~/.kube/config
           apiVersion: v1
@@ -108,8 +109,8 @@ jobs:
           clusters:
           - name: cluster
             cluster:
-              server: ${KUBE_SERVER}
-              certificate-authority-data: ${KUBE_CA}
+              server: ${{ secrets.KUBE_SERVER }}
+              certificate-authority-data: ${{ secrets.KUBE_CA}}
           contexts:
           - name: context
             context:
@@ -119,10 +120,9 @@ jobs:
           users:
           - name: user
             user:
-              token: ${KUBE_TOKEN}
+              token: ${{ secrets.KUBE_TOKEN }}
           EOF
 
-      - name: Deploy
-        run: |
-          kubectl --kubeconfig="~/.kube/config" -n website-next set image deployment/website-next website-next=ghcr.io/${{ github.repository }}:sha-${GITHUB_SHA::7}
-          kubectl --kubeconfig="~/.kube/config" -n website-next rollout status deployment/website-next
+          cat "$HOME/.kube/config"
+          kubectl --kubeconfig="$HOME/.kube/config" -n website-next set image deployment/website-next website-next=ghcr.io/${{ github.repository }}:sha-${GITHUB_SHA::7}
+          kubectl --kubeconfig="$HOME/.kube/config" -n website-next rollout status deployment/website-next
