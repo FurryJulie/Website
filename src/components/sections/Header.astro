@@ -1,5 +1,6 @@
 ---
 import Logo from '../../assets/logo.svg'
+import Countdown from '../countdown.vue'
 
 function ariaCurrent(routePattern: string) {
   return Astro.routePattern === routePattern ? 'page' : undefined
@@ -16,14 +17,14 @@ function ariaCurrent(routePattern: string) {
     <a href="/contact" aria-current={ariaCurrent('/contact')}>Contact</a>
   </nav>
 </nav>
-{
-  /*
-<div class="registration_banner">
+<!-- <div class="registration_banner">
   <div class="registration_banner_text">Flüüfff starts in…</div>
-  <Countdown targetDate="2025-11-05T08:00:00Z" client:load />
+  <Countdown targetDate="2026-11-11T08:00:00Z" client:load />
+</div> -->
+<div class="registration_banner">
+  <div class="registration_banner_text">Registration starts in…</div>
+  <Countdown targetDate="2026-04-19T12:00:00Z" client:load />
 </div>
-*/
-}
 <style is:global lang="scss">
   @use '../../styles/charter';
   @use '../../styles/text-styles';
