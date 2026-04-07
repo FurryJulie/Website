@@ -2,15 +2,15 @@
 interface Props {
   outerClass?: string
   innerClass?: string
+  grid?: string
+  gap?: string
 }
 
-const { outerClass, innerClass } = Astro.props
+const { outerClass, innerClass, grid = 'md:grid-cols-2', gap = 'gap-4 md:gap-[92px]' } = Astro.props
 ---
 
 <section class:list={['px-[80px] py-[60px] flex justify-center text-primary-800', outerClass]}>
-  <div class:list={['max-w-6xl grid grid-cols-2 gap-[92px]', innerClass]}>
-    <slot name="left" />
+  <div class:list={['max-w-6xl', grid.indexOf('grid-') == -1 ? '' : 'grid', grid, gap, innerClass]}>
     <slot />
-    <slot name="right" />
   </div>
 </section>

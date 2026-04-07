@@ -1,5 +1,3 @@
-@use 'sass:map';
-
 $neutrals50: #ffffff;
 $neutrals100: #ffffff;
 $neutrals200: #cdcbcb;
@@ -129,17 +127,3 @@ $accent2: (
   900: $accent2-900,
   950: $accent2-950
 );
-
-@each $size in (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950) {
-  @each $name,
-    $swatch
-      in ('neutrals': $neutrals, 'primary': $primary, 'secondary': $secondary, 'accent1': $accent1, 'accent2': $accent2)
-  {
-    .bg-#{$name}-#{$size} {
-      background-color: map.get($swatch, $size);
-    }
-    .text-#{$name}-#{$size} {
-      color: map.get($swatch, $size);
-    }
-  }
-}
