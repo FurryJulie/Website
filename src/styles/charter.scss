@@ -1,3 +1,6 @@
+@use 'sass:map';
+
+$neutrals50: #ffffff;
 $neutrals100: #ffffff;
 $neutrals200: #cdcbcb;
 $neutrals300: #b4b1b1;
@@ -8,6 +11,20 @@ $neutrals700: #4e4b4b;
 $neutrals800: #343232;
 $neutrals900: #1a1919;
 $neutrals950: #121111;
+
+$neutrals: (
+  50: $neutrals50,
+  100: $neutrals100,
+  200: $neutrals200,
+  300: $neutrals300,
+  400: $neutrals400,
+  500: $neutrals500,
+  600: $neutrals600,
+  700: $neutrals700,
+  800: $neutrals800,
+  900: $neutrals900,
+  950: $neutrals950
+);
 
 $primary50: #f2e9fc;
 $primary100: #e5d3f8;
@@ -21,6 +38,20 @@ $primary800: #320d59;
 $primary900: #19072c;
 $primary950: #11051f;
 
+$primary: (
+  50: $primary50,
+  100: $primary100,
+  200: $primary200,
+  300: $primary300,
+  400: $primary400,
+  500: $primary500,
+  600: $primary600,
+  700: $primary700,
+  800: $primary800,
+  900: $primary900,
+  950: $primary950
+);
+
 $secondary50: #e9effb;
 $secondary100: #d3dff8;
 $secondary200: #a7c0f1;
@@ -32,6 +63,20 @@ $secondary700: #153a84;
 $secondary800: #0e2758;
 $secondary900: #07132c;
 $secondary950: #050e1f;
+
+$secondary: (
+  50: $secondary50,
+  100: $secondary100,
+  200: $secondary200,
+  300: $secondary300,
+  400: $secondary400,
+  500: $secondary500,
+  600: $secondary600,
+  700: $secondary700,
+  800: $secondary800,
+  900: $secondary900,
+  950: $secondary950
+);
 
 $accent1-50: #eaf6fa;
 $accent1-100: #d6eef5;
@@ -45,6 +90,20 @@ $accent1-800: #134453;
 $accent1-900: #0a2229;
 $accent1-950: #07181d;
 
+$accent1: (
+  50: $accent1-50,
+  100: $accent1-100,
+  200: $accent1-200,
+  300: $accent1-300,
+  400: $accent1-400,
+  500: $accent1-500,
+  600: $accent1-600,
+  700: $accent1-700,
+  800: $accent1-800,
+  900: $accent1-900,
+  950: $accent1-950
+);
+
 $accent2-50: #f8ecf8;
 $accent2-100: #f1daf1;
 $accent2-200: #e4b4e2;
@@ -56,3 +115,31 @@ $accent2-700: #70296e;
 $accent2-800: #4b1b49;
 $accent2-900: #250e25;
 $accent2-950: #1a091a;
+
+$accent2: (
+  50: $accent2-50,
+  100: $accent2-100,
+  200: $accent2-200,
+  300: $accent2-300,
+  400: $accent2-400,
+  500: $accent2-500,
+  600: $accent2-600,
+  700: $accent2-700,
+  800: $accent2-800,
+  900: $accent2-900,
+  950: $accent2-950
+);
+
+@each $size in (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950) {
+  @each $name,
+    $swatch
+      in ('neutrals': $neutrals, 'primary': $primary, 'secondary': $secondary, 'accent1': $accent1, 'accent2': $accent2)
+  {
+    .bg-#{$name}-#{$size} {
+      background-color: map.get($swatch, $size);
+    }
+    .text-#{$name}-#{$size} {
+      color: map.get($swatch, $size);
+    }
+  }
+}
