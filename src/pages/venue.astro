@@ -132,7 +132,7 @@ const nearby = [
 <Base>
   <Section outerClass="bg-secondary-50">
     <Picture
-      class="rounded-lg object-cover object-center hidden md:block"
+      class="rounded-lg object-cover object-center hidden lg:block"
       src={heroImage}
       formats={['avif', 'webp']}
       fallbackFormat="jpg"
@@ -154,7 +154,7 @@ const nearby = [
   </Section>
 
   <Section>
-    <div class="order-1 md:order-2">
+    <div class="order-1 lg:order-2">
       <Picture
         class="rounded-lg object-cover object-center"
         src={pic7}
@@ -164,13 +164,13 @@ const nearby = [
         widths={[400, 800, 1200]}
       />
     </div>
-    <div class="flex flex-col gap-4 justify-center order-2 md:order-1">
+    <div class="flex flex-col gap-4 justify-center order-2 lg:order-1">
       <h2 class="font-atari text-3xl">Room types and comforts</h2>
       <p>
         Decorated with warm colours and soft textures, all spacious rooms at Mercure Antwerp City South are fitted with
         king-size bedding. They all include a flat-screen TV while some include access to the Executive Lounge.
       </p>
-      <p class="flex items-center gap-3 hidden md:block"><LucideClock />Check-in from 15:00 - Check-out up to 12:00</p>
+      <p class="md:flex items-center gap-3 hidden"><LucideClock />Check-in from 15:00 - Check-out up to 12:00</p>
       <p class="flex items-center gap-3 md:hidden"><LucideClock />Check-in from 15:00</p>
       <p class="flex items-center gap-3 md:hidden"><LucideClock />Check-out up to 12:00</p>
       <h3 class="text-xl font-bold uppercase mt-4">Amenities on site include:</h3>
@@ -189,7 +189,7 @@ const nearby = [
     </div>
   </Section>
 
-  <Section outerClass="bg-secondary-50" grid="grid-cols-2 md:grid-cols-3" gap="gap-2">
+  <Section outerClass="bg-secondary-50" grid="grid-cols-2 lg:grid-cols-3" gap="gap-2">
     {
       [pic1, pic2, pic3, pic4, pic5, pic6].map((pic) => (
         <Picture
@@ -204,7 +204,7 @@ const nearby = [
     }
   </Section>
 
-  <Section>
+  <Section grid="grid-cols-1 xl:grid-cols-2" gap="gap-4 xl:gap-[92px]">
     <div class="col-span-full text-center">
       <h2 class="font-atari text-3xl mb-4">Hotel Surroundings</h2>
       <p>
@@ -290,7 +290,7 @@ const nearby = [
     </div>
   </Section>
 
-  <Section outerClass="bg-secondary-50">
+  <Section grid="grid-cols-1 xl:grid-cols-2" gap="gap-10 md:gap-[92px]" outerClass="bg-secondary-50">
     <div class="col-span-full text-center">
       <h2 class="font-atari text-3xl mb-4">Getting to the venue</h2>
       <p>

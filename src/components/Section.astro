@@ -6,7 +6,7 @@ interface Props {
   gap?: string
 }
 
-const { outerClass, innerClass, grid = 'md:grid-cols-2', gap = 'gap-4 md:gap-[92px]' } = Astro.props
+const { outerClass, innerClass, grid = 'grid-cols-1 lg:grid-cols-2', gap = 'gap-4 lg:gap-[92px]' } = Astro.props
 ---
 
 <section class:list={['px-[80px] py-[60px] flex justify-center text-primary-800', outerClass]}>
