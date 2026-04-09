@@ -1,101 +1,566 @@
 ---
+import { Picture } from 'astro:assets'
+
 import Base from '../layouts/Base.astro'
-import Content from '../components/sections/Content.astro'
+import Section from '../components/Section.astro'
 import Socials from '../content/socials.astro'
 import Faq from '../content/Faq.astro'
 import FaqItem from '../content/FaqItem.astro'
 import Button from '../components/Button.astro'
+import Accordion from '../components/Accordion.astro'
 
 import heroImage from '../assets/images/venue/venue.png'
+import delijnImage from '../assets/images/venue/delijn.png'
 
-import LucideClock from '~icons/lucide/clock';
-import LucideCircleParking from '~icons/lucide/circle-parking';
-import LucideUtensils from '~icons/lucide/utensils';
-import LucideAccessibility from '~icons/lucide/accessibility';
-import LucideWifi from '~icons/lucide/wifi';
-import LucideDumbbell from '~icons/lucide/dumbbell';
-import LucideCoffee from '~icons/lucide/coffee';
-import LucideAirVent from '~icons/lucide/air-vent';
-import LucideHandPlatter from '~icons/lucide/hand-platter';
-import LucideWine from '~icons/lucide/wine';
-import LucideCigaretteOff from '~icons/lucide/cigarette-off';
+import pic1 from '../assets/images/venue/1.jpg'
+import pic2 from '../assets/images/venue/2.webp'
+import pic3 from '../assets/images/venue/3.jpg'
+import pic4 from '../assets/images/venue/4.jpg'
+import pic5 from '../assets/images/venue/5.jpg'
+import pic6 from '../assets/images/venue/6.jpg'
+import pic7 from '../assets/images/venue/7.jpg'
+
+import LucideClock from '~icons/lucide/clock'
+import LucideCircleParking from '~icons/lucide/circle-parking'
+import LucideUtensils from '~icons/lucide/utensils'
+import LucideAccessibility from '~icons/lucide/accessibility'
+import LucideWifi from '~icons/lucide/wifi'
+import LucideDumbbell from '~icons/lucide/dumbbell'
+import LucideCoffee from '~icons/lucide/coffee'
+import LucideAirVent from '~icons/lucide/air-vent'
+import LucideHandPlatter from '~icons/lucide/hand-platter'
+import LucideWine from '~icons/lucide/wine'
+import LucideCigaretteOff from '~icons/lucide/cigarette-off'
+import LucideFerrisWheel from '~icons/lucide/ferris-wheel'
+import LucideBusFront from '~icons/lucide/bus-front'
+import LucidePlane from '~icons/lucide/plane'
+import LucideStar from '~icons/lucide/star'
+import LucideFootprints from '~icons/lucide/footprints'
+import LucideChevronRight from '~icons/lucide/chevron-right'
+import Walker from '../components/walker.astro'
+import Timed from '../components/Timed.astro'
+import { start_registration } from '../data/reg/dates.json'
+
+const restaurants = [
+  {
+    address: 'Gerard le Grellelaan 2',
+    maps: 'https://maps.app.goo.gl/tH9qTbCPaQ3nyUUD8',
+    name: 'Colmar Wezenberg',
+    travel: { time: '5 min', distance: '300 m' }
+  },
+  {
+    address: 'Karel Oomsstraat 47',
+    maps: 'https://maps.app.goo.gl/SdAwE84y6JyvM1XSA',
+    name: 'Sushi Daily',
+    travel: { time: '5 min', distance: '400 m' }
+  },
+  {
+    address: 'Desguinlei 18',
+    maps: 'https://maps.app.goo.gl/s7LtRmsS4iGixAGL6',
+    name: 'Taverne ‘t Zonlicht',
+    travel: { time: '5 min', distance: '400 m' }
+  },
+  {
+    address: 'Karel Oomsstraat 45',
+    maps: 'https://maps.app.goo.gl/w5APviQTQ5axXRnx7',
+    name: 'Reclips',
+    travel: { time: '6 min', distance: '450 m' }
+  },
+  {
+    address: 'Jan van Rijswijcklaan 155',
+    maps: 'https://maps.app.goo.gl/ei9RhuDVQ8bb5VTq7',
+    name: 'Nomad',
+    travel: { time: '7 min', distance: '500 m' }
+  },
+  {
+    address: 'Jan van Rijswijcklaan 67',
+    maps: 'https://maps.app.goo.gl/BHH86FPhWoDWUfcc9',
+    name: 'Brusketta',
+    travel: { time: '7 min', distance: '500 m' }
+  },
+  {
+    address: 'Karel Oomsstraat 5',
+    maps: 'https://maps.app.goo.gl/x2wg9HHWSVqHiwfEA',
+    name: 'Café Lucien',
+    travel: { time: '8 min', distance: '650 m' }
+  },
+  {
+    address: 'De Lescluzestraat 2',
+    maps: 'https://maps.app.goo.gl/8JDMJVeLK9zrCpoa8',
+    name: 'Frituur Lescluze',
+    travel: { time: '9 min', distance: '650 m' }
+  },
+  {
+    address: 'Generaal Lemanstraat 2a',
+    maps: 'https://maps.app.goo.gl/XoUKGND3jc1Aj8Qy5',
+    name: 'Il Carpaccio',
+    travel: { time: '10 min', distance: '750 m' }
+  },
+  {
+    address: 'Gerard le Grellelaan 1, 2020 Antwerpen',
+    maps: 'https://maps.app.goo.gl/zvCzUTop9boLzMUCA',
+    name: 'Brasserie Woods',
+    travel: { time: '15 min', distance: '1 km' }
+  },
+  {
+    address: 'Boomgaardstraat 1',
+    maps: 'https://maps.app.goo.gl/1zYUdfBPDXvFDDQj8',
+    name: 'Black Smoke',
+    travel: { time: '17 min', distance: '1.2 km' }
+  },
+  {
+    address: 'Driekoningenstraat 18',
+    maps: 'https://maps.app.goo.gl/ZCFLw4AnChiSgJUPA',
+    name: 'Kunthun 2',
+    travel: { time: '18 min', distance: '1.3 km' }
+  }
+]
+
+const publicTransport = [
+  {
+    method: 'train',
+    name: 'Station Antwerpen-Zuid',
+    travel: { time: '6 min', distance: '1.5 km' }
+  },
+  {
+    method: 'train',
+    name: 'Station Antwerpen-Berchem',
+    travel: { time: '7 min', distance: '2.3 km' }
+  }
+]
+
+const attractions = [
+  { url: 'https://middelheimmuseum.be/en/content/startpagina', name: 'Middelheim Museum ', travel: '2.2 km' },
+  { url: 'https://kmska.be/en/homepage', name: 'Royal Museum of Fine Arts', travel: '2.4 km' },
+  { url: 'https://share.google/IRzJTRRh6IftRgmXt', name: 'Groenplaats', travel: '2.4 km' },
+  { url: 'https://www.rubenshuis.be/en', name: 'Rubenshuis', travel: '3 km' },
+  { url: 'https://www.zooantwerpen.be/en/', name: 'Antwerpen Zoo', travel: '3 km' },
+  { url: 'https://mas.be/en/content/welcome', name: 'MAS Museum', travel: '3 km' }
+]
+
+const airports = [
+  {
+    name: 'Antwerp International Airport',
+    travel: '4.1 km'
+  },
+  { name: 'Brussels Airport Zaventem', travel: '38 km' },
+  { name: 'Eindhoven Airport', travel: '84km' },
+  { name: 'Brussels South Airport Charleroi', travel: '89 km' }
+]
+
+const nearby = [
+  { url: 'https://maps.app.goo.gl/ereyhWmv4TFP6EM4A', name: 'Olympic swimming center Wezenberg', travel: '350 m' },
+  { url: 'https://maps.app.goo.gl/aqGSXGgutbmCiQs17', name: 'Brouwerij De Koninck', travel: '1.2 km' },
+  { url: 'https://maps.app.goo.gl/NcjkMkPt632QhkoV6', name: 'Stokerij Fx de Beukelaer', travel: '1.2 km' },
+  { url: 'https://maps.app.goo.gl/Z8AfWZYu5Xs7i3KH7', name: 'Harmoniepark', travel: '1.2 km' },
+  { url: 'https://maps.app.goo.gl/KF3j4BTvDofHDGDf6', name: 'Vogelzang', travel: '1.4 km' }
+]
 ---
 
 <Base>
-  <Content headline="The venue: Mercure hotel Antwerp" sideImage={heroImage} bg="secondary">
-    <p>
-      This year's hotel is the wonderful Bedford Hotel in Brussels — a cozy base just steps away from the city centre,
-      the train station, countless eateries, and the vibrant nightlife.
-    </p>
-    <Fragment slot="actions">
-      <Button label="Contact us" outline go to="/contact" />
-      <Button label="Learn more" outline to="/about" />
-    </Fragment>
-  </Content>
-  <Content headline="Room types and comforts" sideImage={heroImage} right>
-    <div>
-    <p>
-      Decorated with warm colours and soft textures, all spacious rooms at Mercure Antwerp City South are fitted with
-      king-size bedding. They all include a flat-screen TV while some include access to the Executive Lounge.
-    </p>
+  <Section outerClass="bg-secondary-50">
+    <Picture
+      class="rounded-lg object-cover object-center hidden lg:block"
+      src={heroImage}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
+      alt=""
+      widths={[400, 800, 1200]}
+    />
+    <div class="flex flex-col gap-4 justify-center">
+      <h2 class="font-atari text-2xl md:text-3xl text-center md:text-left">
+        The venue:<br />Mercure Hotel Antwerp City South
+      </h2>
+      <p>
+        This year's location is the Mercure Hotel located in Antwerp, a <span class="font-bold">cosy base just steps away from the city centre</span>, the train station, and local attractions, with the charm of a classic city stay.
+      </p>
+      <div class="grid grid-col-1 md:grid-col-2 gap-4">
+        <Timed start={start_registration}>
+          <Button label="Register" to="https://registration.fluufff.org" />
+        </Timed>
+        <Button label="Contact us" outline to="/contact" />
+      </div>
     </div>
-    <p class="flex items-center gap-3 mt-4"><LucideClock></LucideClock>Check-in from 15:00 - Check-out up to 12:00</p>
-    <h3 class="text-xl font-bold uppercase mt-8">Amenities on site include:</h3>
-    <div class="grid grid-cols-[auto_1fr_auto_1fr] items-center gap-2 mt-4">
-      <LucideCircleParking></LucideCircleParking><p>Car park</p>
-      <LucideAccessibility></LucideAccessibility><p>Wheelchair accessible</p>
-      <LucideUtensils></LucideUtensils><p>Restaurant</p>
-      <LucideWifi></LucideWifi><p>WiFi</p>
-      <LucideDumbbell></LucideDumbbell><p>Fitness center</p>
-      <LucideCoffee></LucideCoffee><p>Breakfast</p>
-      <LucideAirVent></LucideAirVent><p>Air conditioning</p>
-      <LucideHandPlatter></LucideHandPlatter><p>Room service</p>
-      <LucideWine></LucideWine><p>Bar</p>
-      <LucideCigaretteOff></LucideCigaretteOff><p>100% non smoking property</p>
+  </Section>
+
+  <Section>
+    <div class="order-1 lg:order-2">
+      <Picture
+        class="rounded-lg object-cover object-center h-full"
+        src={pic7}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        widths={[400, 800, 1200]}
+      />
     </div>
-  </Content>
+    <div class="flex flex-col gap-4 justify-center order-2 lg:order-1">
+      <h2 class="font-atari text-2xl md:text-3xl">Room types and comforts</h2>
+      <p>
+        Decorated with warm colours and soft textures, all spacious rooms at Mercure Antwerp City South are fitted with
+        king-size bedding. They all include a flat-screen TV while some include access to the Executive Lounge.
+      </p>
+      <p class="md:flex items-center gap-3 hidden"><LucideClock />Check-in from 15:00 - Check-out up to 12:00</p>
+      <p class="flex items-center gap-3 md:hidden"><LucideClock />Check-in from 15:00</p>
+      <p class="flex items-center gap-3 md:hidden"><LucideClock />Check-out up to 12:00</p>
+      <h3 class="text-xl font-bold uppercase mt-4">Amenities on site include:</h3>
+      <div class="grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto_1fr] items-center gap-2">
+        <LucideCircleParking /><p>Car park</p>
+        <LucideAccessibility /><p>Wheelchair accessible</p>
+        <LucideUtensils /><p>Restaurant</p>
+        <LucideWifi /><p>WiFi</p>
+        <LucideDumbbell /><p>Fitness center</p>
+        <LucideCoffee /><p>Breakfast</p>
+        <LucideAirVent /><p>Air conditioning</p>
+        <LucideHandPlatter /><p>Room service</p>
+        <LucideWine /><p>Bar</p>
+        <LucideCigaretteOff /><p>100% non smoking property</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section outerClass="bg-secondary-50" grid="grid-cols-2 lg:grid-cols-3" gap="gap-2">
+    {
+      [pic1, pic2, pic3, pic4, pic5, pic6].map((pic) => (
+        <Picture
+          class="rounded-lg object-cover object-center"
+          src={pic}
+          formats={['avif', 'webp']}
+          fallbackFormat="jpg"
+          alt=""
+          widths={[200, 400]}
+        />
+      ))
+    }
+  </Section>
+
+  <Section grid="grid-cols-1 xl:grid-cols-2" gap="md:gap-4 xl:gap-[92px]">
+    <div class="col-span-full text-center">
+      <h2 class="font-atari text-2xl md:text-3xl mb-4">Hotel Surroundings</h2>
+      <p>
+        That rumble isn't part of the soundtrack; it's your hunger bar dropping.<br />
+        If you need to refuel during Flüüfff, here are some nearby options.
+      </p>
+    </div>
+
+    <div class="flex flex-col md:gap-10">
+      <Accordion class="md:hidden" buttonClass="text-xl text-secondary-500 font-bold uppercase flex-1 gap-2 py-8">
+        <LucideUtensils slot="button" />
+        <h3 slot="button">Restaurants & cafes</h3>
+        <div class="flex flex-col gap-4">
+          {
+            restaurants.map((r) => (
+              <a
+                href={r.maps}
+                class="grid grid-cols-[1fr_auto] no-underline border border-neutral-200 p-4 text-primary-800 rounded-md shadow-sm"
+              >
+                <div class="flex flex-col gap-1">
+                  <p class="font-bold text-secondary-500 mb-1">{r.name}</p>
+                  <p>{r.address}</p>
+                  <p class="flex gap-2">
+                    <LucideFootprints />
+                    <span>{r.travel.time}</span>
+                    <span>{r.travel.distance}</span>
+                  </p>
+                </div>
+                <LucideChevronRight class="text-secondary-500" />
+              </a>
+            ))
+          }
+        </div>
+      </Accordion>
+      <section class="hidden md:flex flex-col gap-2">
+        <h3 class="text-xl font-bold uppercase flex gap-2 mb-2"><LucideUtensils />Restaurants & cafes</h3>
+        {
+          restaurants.map((r) => (
+            <div class="grid grid-cols-[1fr_auto_auto_auto] gap-2">
+              <a href={r.maps}>
+                {r.name} / {r.address}
+              </a>
+              <Walker />
+              <p>{r.travel.time}</p>
+              <p>{r.travel.distance}</p>
+            </div>
+          ))
+        }
+      </section>
+
+      <Accordion
+        class="md:hidden border-t-1 border-secondary-100"
+        buttonClass="text-xl text-secondary-500 font-bold uppercase flex-1 gap-2 py-8"
+      >
+        <LucideBusFront slot="button" />
+        <h3 slot="button">Public Transport</h3>
+        <div class="flex flex-col gap-4">
+          {
+            publicTransport.map((t) => (
+              <div class="flex flex-col gap-1 border border-neutral-200 p-4 text-primary-800 rounded-md shadow-sm">
+                <p class="font-bold text-secondary-500 mb-1">
+                  {t.method} / {t.name}
+                </p>
+                <p class="flex gap-2">
+                  <LucideFootprints />
+                  <span>{t.travel.time}</span>
+                  <span>{t.travel.distance}</span>
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </Accordion>
+      <section class="hidden md:flex flex-col gap-2">
+        <h3 class="text-xl font-bold uppercase flex gap-2 mb-2"><LucideBusFront />Public Transport</h3>
+        {
+          publicTransport.map((t) => (
+            <div class="grid grid-cols-[1fr_auto_auto_auto] gap-2">
+              <p>
+                {t.method} / {t.name}
+              </p>
+              <Walker />
+              <p>{t.travel.time}</p>
+              <p>{t.travel.distance}</p>
+            </div>
+          ))
+        }
+      </section>
+    </div>
+
+    <div class="flex flex-col md:gap-10">
+      <Accordion
+        class="md:hidden border-t-1 border-secondary-100"
+        buttonClass="text-xl text-secondary-500 font-bold uppercase flex-1 gap-2 py-8"
+      >
+        <LucideFerrisWheel slot="button" />
+        <h3 slot="button">Top Attractions</h3>
+        <div class="flex flex-col gap-4">
+          {
+            attractions.map((a) => (
+              <a
+                href={a.url}
+                class="grid grid-cols-[1fr_auto] no-underline border border-neutral-200 p-4 text-primary-800 rounded-md shadow-sm"
+              >
+                <div class="flex flex-col gap-1">
+                  <p class="font-bold text-secondary-500 mb-1">{a.name}</p>
+                  <p class="flex gap-2">
+                    <LucideFootprints />
+                    <span>{a.travel}</span>
+                  </p>
+                </div>
+                <LucideChevronRight class="text-secondary-500" />
+              </a>
+            ))
+          }
+        </div>
+      </Accordion>
+      <section class="hidden md:flex flex-col gap-2">
+        <h3 class="text-xl font-bold uppercase flex gap-2 mb-2"><LucideFerrisWheel />Top Attractions</h3>
+        {
+          attractions.map((a) => (
+            <div class="grid grid-cols-[1fr_auto] gap-2">
+              <a href={a.url}>{a.name}</a>
+              <p>{a.travel}</p>
+            </div>
+          ))
+        }
+      </section>
+
+      <Accordion
+        class="md:hidden border-t-1 border-secondary-100"
+        buttonClass="text-xl text-secondary-500 font-bold uppercase flex-1 gap-2 py-8"
+      >
+        <LucidePlane slot="button" />
+        <h3 slot="button">Closest Airports</h3>
+        <div class="flex flex-col gap-4">
+          {
+            airports.map((a) => (
+              <div class="flex flex-col gap-1 border border-neutral-200 p-4 text-primary-800 rounded-md shadow-sm">
+                <p class="font-bold text-secondary-500 mb-1">{a.name}</p>
+                <p>{a.travel}</p>
+              </div>
+            ))
+          }
+        </div>
+      </Accordion>
+      <section class="hidden md:flex flex-col gap-2">
+        <h3 class="text-xl font-bold uppercase flex gap-2 mb-2"><LucidePlane />Closest Airports</h3>
+        {
+          airports.map((a) => (
+            <div class="grid grid-cols-[1fr_auto] gap-2">
+              <p>{a.name}</p>
+              <p>{a.travel}</p>
+            </div>
+          ))
+        }
+      </section>
+
+      <Accordion
+        class="md:hidden border-t-1 border-secondary-100"
+        buttonClass="text-xl text-secondary-500 font-bold uppercase flex-1 gap-2 py-8"
+      >
+        <LucideStar slot="button" />
+        <h3 slot="button">What's nearby</h3>
+        <div class="flex flex-col gap-4">
+          {
+            nearby.map((n) => (
+              <a
+                href={n.url}
+                class="grid grid-cols-[1fr_auto] no-underline border border-neutral-200 p-4 text-primary-800 rounded-md shadow-sm"
+              >
+                <div class="flex flex-col gap-1">
+                  <p class="font-bold text-secondary-500 mb-1">{n.name}</p>
+                  <p class="flex gap-2">
+                    <LucideFootprints />
+                    <span>{n.travel}</span>
+                  </p>
+                </div>
+                <LucideChevronRight class="text-secondary-500" />
+              </a>
+            ))
+          }
+        </div>
+      </Accordion>
+      <section class="hidden md:flex flex-col gap-2">
+        <h3 class="text-xl font-bold uppercase flex gap-2 mb-2"><LucideStar />What's nearby</h3>
+        {
+          nearby.map((n) => (
+            <div class="grid grid-cols-[1fr_auto] gap-2">
+              <a href={n.url}>{n.name}</a>
+              <p>{n.travel}</p>
+            </div>
+          ))
+        }
+      </section>
+    </div>
+  </Section>
+
+  <Section grid="grid-cols-1 xl:grid-cols-2" gap="gap-10 md:gap-[92px]" outerClass="bg-secondary-50">
+    <div class="col-span-full text-center">
+      <h2 class="font-atari text-2xl md:text-3xl mb-4">Getting to the venue</h2>
+      <p>
+        There are many ways to get to the venue by train, bus and/or tram! Here's a quick guide to prepare for your
+        trip.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <h2 class="font-atari text-2xl mb-4">By train</h2>
+      <p>
+        The biggest station of Antwerp is <span class="font-bold">Antwerpen Centraal</span>. This station acts as a
+        terminus for most national trains. It also gets international traffic. If you come from abroad, you can take
+        these trains without an interchange in Brussels:
+      </p>
+      <ul class="list-disc ml-8">
+        <li>
+          <span class="font-bold">European Sleeper</span>: Night train between Brussels and Prague.<br />
+          Also stops in Berlin. 3 trains weekly.<br />
+          Book tickets here: <a href="https://europeansleeper.eu">europeansleeper.eu</a>
+        </li>
+        <li>
+          <span class="font-bold">Eurostar</span>: A high speed train between Paris and Amsterdam.<br />
+          Book tickets here: <a href="https://eurostar.com">eurostar.com</a>
+        </li>
+        <li>
+          <span class="font-bold">EuroCity Direct</span>: A high speed train going through Lelystad, Amsterdam and
+          Brussels. 16 trains daily.<br />
+          Book tickets here: <a href="https://nsinternational.com/en/out-and-about/eurocity-direct"
+            >nsinternational.com/en/out-and-about/eurocity-direct</a
+          >
+        </li>
+        <li>
+          <span class="font-bold">EuroCity</span>: The slower, but cheaper Belgian version of the EuroCity Direct.<br />
+          Starts from Rotterdam and ends in Brussels. 16 trains daily.<br />
+          Book tickets here: <a href="https://b-europe.com/EN/Trains/EuroCity">b-europe.com/EN/Trains/EuroCity</a>
+        </li>
+        <li>If you come from Roosendaal, the local train <span class="font-bold">S32</span> takes you to Antwerp.</li>
+        <li><span class="font-bold">ICE</span>: A high speed train connecting Köln with Antwerp. 2 trains daily.</li>
+      </ul>
+      <p>If you arrive by plane and land at Brussels Airport Zavemtem, there is a direct train to Antwerp every half an hour.</p>
+      <p>Be aware that a similarly named airport Brussels South Airport Charleroi does not have any train connections; the trip would involve buses or trams and will take at least 2.5h.</p>
+      <p>
+        There is also a smaller station just a 20 minute walk from the hotel called Antwerpen-Zuid. This one gets the
+        S32 Puurs - Essen/Roosendaal, S34 Dendermonde - Antwerpen-Berchem, the IC De Panne - Antwerpen Centraal, and the
+        IC Oostende - Antwerpen Centraal.
+      </p>
+      <p>
+        Plan your trip and book tickets on the Belgian rail network using <a href="https://belgiantrain.be"
+          >belgiantrain.be</a
+        >
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <h2 class="font-atari text-2xl mb-4">By tram</h2>
+      <p>
+        When getting off at <span class="font-bold">Antwerpen Centraal</span>, you can take the following connections:<br
+        />
+        Go to the underground tram stop named Diamant Metro And take either <span class="font-bold">Tram 2</span> towards
+        <span class="font-bold">Zwaantjes</span> or <span class="font-bold">Tram 6</span> to <span class="font-bold"
+          >P+R Olympiade</span
+        >. The tram stop nearest to the hotel is DeSingel and is located right around the corner. Both trams take the
+        same route, giving you a tram every 5 minutes. Antwerp has a vast network of buses and trams, please check <a
+          href="https://delijn.be/en/">delijn.be</a
+        > for more info and tickets.
+      </p>
+      <Picture
+        class="rounded-lg object-cover object-center"
+        src={delijnImage}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        widths={[400, 600]}
+      />
+    </div>
+  </Section>
+
   <Socials />
   <Faq>
-    <FaqItem question="Can I pay in installments?">
-      Installment payment is not officially offered. Tickets must be paid in full at registration unless a specific
-      arrangement has been made.
+    <FaqItem question="Do I need to stay at the hotel to attend Flüüfff?">
+      No, staying at the hotel is optional. You can attend the convention with a convention ticket without booking
+      accommodation at the venue.
     </FaqItem>
-    <FaqItem question="Which payment methods do you accept?">
-      Payments for registration are handled online and are via bank transfer only. For hotel or food purchases, local
-      card and cash payments are accepted at the venue.
+    <FaqItem question="Are there places to eat near the venue?">
+      Yes. There are many restaurants and cafés within walking distance of the hotel, ranging from quick bites to full
+      dining options.
+    </FaqItem>
+    <FaqItem question="Is the venue accessible?">
+      Yes. The hotel is wheelchair accessible and equipped to accommodate guests with accessibility needs.
+    </FaqItem>
+    <FaqItem question="Can I arrive before check-in or stay after check-out?">
+      Yes, but your room may not be available yet or no longer accessible. The hotel can usually store your luggage so
+      you can still enjoy the convention.
+    </FaqItem>
+    <FaqItem question="Do I need to book accommodation through Flüüfff to stay at the hotel?">
+      <p>No. You are free to arrange your own accommodation.</p>
+      <p>
+        You can book a room at the venue independently, as long as you have a valid convention ticket, or choose to stay
+        at a different hotel entirely.
+      </p>
+      <p>
+        However, rooms booked through Flüüfff are part of a negotiated group rate and are therefore more advantageous.
+        Booking separately will likely result in higher prices and does not guarantee availability within the convention
+        block.
+      </p>
+    </FaqItem>
+    <FaqItem question="Can I choose who I share a room with?">
+      Yes. Rooms are booked by one person, who is responsible for the booking and can choose who to share it with.
+    </FaqItem>
+    <FaqItem question="Is the hotel exclusively for Flüüfff attendees?">
+      During the convention, most of the hotel will be occupied by attendees, creating a shared and immersive
+      atmosphere. There is, however, a limited amount of external visitors present at the hotel.
+    </FaqItem>
+    <FaqItem question="Are food and drinks available at the venue?">
+      Yes. The hotel has a restaurant and bar, and there are many additional options nearby within walking distance.
+    </FaqItem>
+    <FaqItem question="How do I get around Antwerp during the convention?">
+      Antwerp has an extensive network of trams and buses. The nearest tram stop (DeSingel) connects you easily to the
+      city centre and other areas.
+    </FaqItem>
+    <FaqItem question="Is parking available at the venue?">
+      <p>
+        Yes, the hotel offers limited on-site indoor parking. Parking costs €22 per day and is subject to availability.
+        Electric vehicle charging stations are also available.
+      </p>
+      <p>We also recommended parking at any of the nearby public parkings that are close to the venue.</p>
     </FaqItem>
   </Faq>
 </Base>
-
-<style lang="scss" is:global>
-  .content .pricing {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 22px;
-    margin: 48px 0;
-
-    @media (max-width: 1200px) and (min-width: 601px) {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      flex-direction: column;
-      align-items: center;
-
-      > :nth-child(odd) {
-        justify-self: end;
-      }
-    }
-
-    @media (max-width: 600px) {
-      flex-direction: column;
-
-      .pricing-card {
-        width: 100%;
-      }
-    }
-  }
-
-  .content .pricing_details {
-    max-width: 480px;
-  }
-</style>

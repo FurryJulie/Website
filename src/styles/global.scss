@@ -1,5 +1,6 @@
 @use './text-styles';
 @use './charter';
+@use './tailwind-extras';
 
 * {
   leading-trim: both;
@@ -23,7 +24,6 @@ body {
 }
 
 a {
-  text-decoration: none;
   transition:
     color 0.2s ease-in-out,
     background-color 0.2s ease-in-out;

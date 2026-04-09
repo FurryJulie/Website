@@ -26,3 +26,30 @@ import Footer from '../components/sections/Footer.astro'
     flex-direction: column;
   }
 </style>
+
+<script>
+  const magicword = [
+    'ArrowUp',
+    'ArrowUp',
+    'ArrowDown',
+    'ArrowDown',
+    'ArrowLeft',
+    'ArrowRight',
+    'ArrowLeft',
+    'ArrowRight',
+    'b',
+    'a'
+  ]
+  let pos = 0
+  document.addEventListener('keydown', function raptorKeyDown(event) {
+    if (event.key === magicword[pos]) {
+      pos += 1
+      if (pos === magicword.length) {
+        location.href = 'https://pawsteroids.fluufff.org/'
+        pos = 0
+      }
+    } else {
+      pos = 0
+    }
+  })
+</script>

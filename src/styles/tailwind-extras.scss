@@ -1,0 +1,35 @@
+@use 'sass:map';
+
+@use './charter';
+
+.font-atari {
+  font-family: var(--font-atari), sans-serif;
+}
+
+.font-inter {
+  font-family: var(--font-inter), sans-serif;
+}
+
+// The color palettes
+@each $size in (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950) {
+  @each $name,
+    $swatch
+      in (
+        'neutrals': charter.$neutrals,
+        'primary': charter.$primary,
+        'secondary': charter.$secondary,
+        'accent1': charter.$accent1,
+        'accent2': charter.$accent2
+      )
+  {
+    .bg-#{$name}-#{$size} {
+      background-color: map.get($swatch, $size);
+    }
+    .text-#{$name}-#{$size} {
+      color: map.get($swatch, $size);
+    }
+    .border-#{$name}-#{$size} {
+      color: map.get($swatch, $size);
+    }
+  }
+}

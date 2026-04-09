@@ -41,8 +41,8 @@ let interval: NodeJS.Timeout
 updateCountdown()
 
 function updateCountdown() {
-  const now = new Date()
-  const target = new Date(props.targetDate)
+  const now = new Date().getTime()
+  const target = new Date(props.targetDate).getTime()
   const diff = target - now
 
   if (diff <= 0) {

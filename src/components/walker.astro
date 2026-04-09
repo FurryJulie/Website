@@ -1,0 +1,19 @@
+---
+import TwemojiPersonWalkingLightSkinTone from '~icons/twemoji/person-walking-light-skin-tone'
+import TwemojiWomanWalkingLightSkinTone from '~icons/twemoji/woman-walking-light-skin-tone'
+import TwemojiPersonWalkingMediumSkinTone from '~icons/twemoji/person-walking-medium-skin-tone'
+import TwemojiWomanWalkingMediumSkinTone from '~icons/twemoji/woman-walking-medium-skin-tone'
+import TwemojiManWalkingMediumDarkSkinTone from '~icons/twemoji/man-walking-medium-dark-skin-tone'
+import TwemojiWomanWalkingMediumDarkSkinTone from '~icons/twemoji/woman-walking-medium-dark-skin-tone'
+const walkers = [
+  TwemojiPersonWalkingLightSkinTone,
+  TwemojiWomanWalkingLightSkinTone,
+  TwemojiPersonWalkingMediumSkinTone,
+  TwemojiWomanWalkingMediumSkinTone,
+  TwemojiManWalkingMediumDarkSkinTone,
+  TwemojiWomanWalkingMediumDarkSkinTone
+]
+const Rando = walkers[Math.floor(Math.random() * walkers.length)]!
+---
+
+<Rando {...Astro.props} />

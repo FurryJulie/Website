@@ -1,0 +1,16 @@
+---
+interface Props {
+  outerClass?: string
+  innerClass?: string
+  grid?: string
+  gap?: string
+}
+
+const { outerClass, innerClass, grid = 'grid-cols-1 lg:grid-cols-2', gap = 'gap-4 lg:gap-[92px]' } = Astro.props
+---
+
+<section class:list={['px-10 md:px-[80px] py-10 md:py-[60px] flex justify-center text-primary-800', outerClass]}>
+  <div class:list={['max-w-6xl', grid.indexOf('grid-') == -1 ? '' : 'grid', grid, gap, innerClass]}>
+    <slot />
+  </div>
+</section>
