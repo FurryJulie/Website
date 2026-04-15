@@ -25,6 +25,9 @@
     .bg-#{$name}-#{$size} {
       background-color: map.get($swatch, $size);
     }
+    svg .bg-#{$name}-#{$size} {
+      fill: map.get($swatch, $size);
+    }
     .text-#{$name}-#{$size} {
       color: map.get($swatch, $size);
     }
