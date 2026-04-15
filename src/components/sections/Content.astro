@@ -2,18 +2,19 @@
 import { Picture } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 interface Props {
-  headline?: string | undefined
-  sideImage?: ImageMetadata | undefined
-  right?: boolean | undefined
-  markdown?: boolean | undefined
-  wider?: boolean | undefined
-  id?: string | undefined
-  bg?: 'primary' | 'secondary' | 'primary-dark' | undefined
-  class?: string | undefined
-  alignContent?: 'start' | 'end' | undefined
+  headline?: string
+  sideImage?: ImageMetadata
+  right?: boolean
+  markdown?: boolean
+  wider?: boolean
+  id?: string
+  bg?: 'primary' | 'secondary' | 'primary-dark'
+  class?: string
+  pictureclass?: string
+  alignContent?: 'start' | 'end'
 }
 
-const { headline, markdown, bg, sideImage, right, id, wider, alignContent } = Astro.props
+const { headline, markdown, bg, sideImage, right, id, wider, alignContent, pictureclass = '' } = Astro.props
 ---
 
 <section
@@ -37,7 +38,14 @@ const { headline, markdown, bg, sideImage, right, id, wider, alignContent } = As
   {
     !!sideImage && (
       <>
-        <Picture src={sideImage} formats={['avif', 'webp']} fallbackFormat="jpg" alt="" widths={[400, 800, 1200]} />
+        <Picture
+          src={sideImage}
+          class:list={[pictureclass]}
+          formats={['avif', 'webp']}
+          fallbackFormat="jpg"
+          alt=""
+          widths={[400, 800, 1200]}
+        />
         <div class="content__side_container">
           {headline && <h2>{headline}</h2>}
           <slot />
