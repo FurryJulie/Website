@@ -1,7 +1,7 @@
 ---
 import Button from '../components/Button.astro'
-
 ---
+
 <div class="header">
   <div class="header-left">
     <h1>Everything you need to know to join the Fluufff Dealers Den</h1>
@@ -14,8 +14,8 @@ import Button from '../components/Button.astro'
 </div>
 
 <style scoped lang="scss">
-  @use "../styles/charter.scss";
-	@use "../styles/text-styles.scss";
+  @use '../styles/charter.scss';
+  @use '../styles/text-styles.scss';
 
   .header {
     flex: 1;
@@ -35,12 +35,11 @@ import Button from '../components/Button.astro'
   .header-left {
     flex: 5;
     color: charter.$primary800;
-    
+
     h1 {
       @include text-styles.heading2;
       padding-bottom: 16px;
     }
-
   }
 
   .header-right {
