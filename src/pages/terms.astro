@@ -222,7 +222,7 @@ import MobileBottomNavbar from '../components/MobileBottomNavbar.astro'
       padding-top: 80px;
     }
 
-    &:last-child {
+    &:not(:has(~ .content)) {
       padding-bottom: 80px;
     }
 
@@ -233,7 +233,7 @@ import MobileBottomNavbar from '../components/MobileBottomNavbar.astro'
         padding-top: 40px;
       }
 
-      &:last-child {
+      &:not(:has(~ .content)) {
         padding-bottom: 40px;
       }
     }
