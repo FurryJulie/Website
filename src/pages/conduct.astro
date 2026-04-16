@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro'
+import Sidebar from '../layouts/Sidebar.astro'
+import Socials from '../content/socials.astro'
+---
+
+<Base>
+  <Sidebar style="terms">
+    <main>
+      <div class="content">
+        <h1>Code of Conduct</h1>
+        <p>Last updated: 30/03/2026</p>
+        <p>
+          Flüüfff is committed to creating a safe, respectful, and welcoming environment for everyone. By attending the
+          convention, you agree to follow the rules below. These are here to ensure all attendees, whether it's your
+          first con or your fiftieth, can enjoy the experience fully and comfortably.
+        </p>
+      </div>
+      <div class="content">
+        <h2>1. Respect and Inclusion</h2>
+        <ul>
+          <li>Harassment, discrimination, or inappropriate behavior of any kind will not be tolerated.</li>
+          <li>Always ask for consent — whether it's for a photo, a hug, or a conversation.</li>
+          <li>
+            If you experience or witness something that makes you uncomfortable, please report it to a staff member.
+            We're here to help.
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>2. Badges and Identification</h2>
+        <ul>
+          <li>Convention badges must be worn visibly at all times within convention areas.</li>
+          <li>
+            Badges are personal and non-transferable. Sharing, duplicating, or altering badges is strictly prohibited.
+          </li>
+          <li>Attendees must be at least 18 years old and may be asked to show ID at check-in or during the event.</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>3. Attire, Clothing, and Fursuiting</h2>
+        <ul>
+          <li>
+            All clothing must be decent and appropriate for a public, mixed-audience environment. Excessively revealing,
+            fetish-related, or offensive clothing or accessories are not allowed.
+          </li>
+          <li>Nudity or clothing simulating nudity is not permitted.</li>
+          <li>Fursuits and partial suits are welcome but must allow for safe movement and propervisibility.</li>
+          <li>
+            Fursuiters must ensure their costume is safe to wear in public spaces, does not pose hazards to themselves
+            or others, and can be removed quickly in case of emergency.
+          </li>
+          <li>
+            Wearing fursuit parts (tails, ears, paws, etc.) is allowed, but they must not be used inappropriately or
+            disruptively.
+          </li>
+          <li>
+            Props or costume parts resembling weapons must be clearly non-functional and may be subject to staff
+            inspection.
+          </li>
+          <li>
+            Always treat fursuiters and those wearing costume parts with respect. Do not touch, hug, or interact
+            physically with a fursuiter without clear and explicit consent.
+          </li>
+          <li>
+            Do not pull on tails, ears, or other costume parts, even in jest. These actions can damage costumes and may
+            be considered harassment.
+          </li>
+          <li>
+            Be mindful of the reduced vision and hearing that fursuiters may experience, and take extra care when
+            approaching or speaking to them.
+          </li>
+          <li>
+            Be aware that some items of clothing, apparel, or similar items might bring theconvention and/or fandom into
+            disrepute and should not be worn in public. If you have toask or think twice about doing something in
+            public, it is a good indication that you shouldtake it to your room.
+          </li>
+          <li>
+            Convention staff reserves the right to determine whether any clothing and/or accessoriescontravene the
+            following rules. Questions regarding rules for clothing and outfits should be directed to the department
+            head of Stewards &amp; Safety, who can be contacted at <a href="mailto:conops@fluufff.org"
+              >conops@fluufff.org</a
+            >.
+          </li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>4. Photography and media</h2>
+        <ul>
+          <li>
+            Flüüfff may be documented by our official media team. By attending, you give us permission to use
+            photographs or video footage of you for promotional purposes. If you do not wish to appear in official
+            photos or videos, please notify staff.
+          </li>
+          <li>
+            Personal photography is welcome, but always ask permission before photographing other attendees, especially
+            those in fursuit.
+          </li>
+          <li>Photography is not allowed in designated private areas such as the Dealer's Den.</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>5. Health and Safety</h2>
+        <ul>
+          <li>
+            If you're feeling unwell, refrain from attending convention activities to ensure the health and safety of
+            others.
+          </li>
+          <li>Follow any public health guidance in place.</li>
+          <li>Maintain personal hygiene. Follow the "6-2-1" rule: 6 hours of sleep, 2 meals, and 1 shower per day.</li>
+          <li>Familiarize yourself with emergency exits and procedures.</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>6. Prohibited Items and Activities</h2>
+        <ul>
+          <li>Weapons (real or replica) are not allowed unless explicitly approved by the staff.</li>
+          <li>Maintain respectful behavior towards all attendees, staff, and venue personnel.</li>
+          <li>Disruptive or aggressive behavior is not acceptable.</li>
+          <li>Alcohol is permitted only in designated areas and must comply with local laws.</li>
+          <li>Illegal substances are strictly prohibited.</li>
+          <li>Be mindful of noise, especially during late hours.</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>7. Consequences and Enforcement</h2>
+        <ul>
+          <li>
+            Failure to comply with these rules may result in consequences ranging from warnings to expulsion without
+            refund.
+          </li>
+          <li>In serious cases, the organizers may involve security or local authorities.</li>
+          <li>Appeals may be submitted to the organizing committee. Their decision is final.</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h2>8. Questions and Incident Reporting</h2>
+        <ul>
+          <li>
+            If you have questions about this Code of Conduct or need to report an incident, please contact us through
+            the <a href="/contact">Contact</a> page or speak directly with a staff member.
+          </li>
+        </ul>
+      </div>
+    </main>
+  </Sidebar>
+  <Socials />
+</Base>
+
+<style scoped lang="scss">
+  @use '../styles/text-styles';
+  @use '../styles/charter';
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .content {
+    padding: 20px 60px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: charter.$primary800;
+
+    &:first-child {
+      padding: 80px 60px 20px 60px;
+    }
+
+    &:last-child {
+      padding: 20px 60px 80px 60px;
+    }
+
+    h1 {
+      @include text-styles.heading1;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      @include text-styles.heading4;
+      margin-bottom: 16px;
+    }
+
+    p:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    a {
+      color: charter.$primary500;
+    }
+
+    ul > li {
+      list-style-type: disc;
+    }
+  }
+</style>
