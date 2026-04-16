@@ -22,9 +22,7 @@ function getIconSvg(name: string) {
           <span class="bottom-bar-icon" set:html={getIconSvg('arrow-left')} />
           <span>{backLabel}</span>
         </a>
-      ) : (
-        <span class="bottom-bar-link" />
-      )
+      ) : (<></>)
     }
     {
       nextHref && nextLabel ? (
@@ -32,9 +30,7 @@ function getIconSvg(name: string) {
           <span>{nextLabel}</span>
           <span class="bottom-bar-icon" set:html={getIconSvg('arrow-rigth')} />
         </a>
-      ) : (
-        <span class="bottom-bar-link" />
-      )
+      ) : (<></>)
     }
   </div>
 </div>
