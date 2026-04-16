@@ -41,11 +41,15 @@ function getIconSvg(name: string) {
 
   .bottom-bar-container {
     display: none;
-    padding: 32px;
+    padding: 32px 60px;
 
     @media (max-width: 900px) {
       display: block;
       width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      padding: 32px 20px;
     }
 
     .bottom-bar {
