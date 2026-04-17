@@ -25,7 +25,7 @@ const id = Math.random().toString(36).slice(2, 11)
   )
 }
 
-<script define:vars={{ id, start }}>
+<script is:inline define:vars={{ id, start }}>
   let divs = document.querySelectorAll(`div[data-id="${id}"] > div`)
   if (divs.length == 0) {
     divs = document.querySelectorAll(`div[data-id="${id}"]`)
