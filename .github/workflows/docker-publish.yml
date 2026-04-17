@@ -74,6 +74,11 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            STRAPI_URI=https://cms.fluufff.org/api/
+            SITE_BASE_URL=${{ vars.SITE_BASE_URL }}
+          secrets: |
+            STRAPI_TOKEN=${{ secrets.STRAPI_TOKEN }}
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
