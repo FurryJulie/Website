@@ -4,7 +4,6 @@ import Countdown from '../countdown.vue'
 import { start_registration, start_con } from '../../data/reg/dates.json'
 import Timed from '../Timed.astro'
 import Button from '../Button.astro'
-// import LucideChevronUp from '~icons/lucide/chevron-up'
 import LucideChevronDown from '~icons/lucide/chevron-down'
 
 function isCurrent(...routePattern: string[]) {
@@ -23,9 +22,9 @@ function isCurrent(...routePattern: string[]) {
         Attend <LucideChevronDown />
       </p>
       <ul class="p-2 bg-neutrals-50 shadow-md text-nowrap">
-        <!-- <li class="hover:bg-primary-50">
+        <li class="hover:bg-primary-50">
           <a class="p-4" href="/schedule" class:list={[isCurrent('/schedule') && 'font-bold']}>Program & Events</a>
-        </li> -->
+        </li>
         <li class="hover:bg-primary-50">
           <a class="p-4" href="/venue" class:list={[isCurrent('/venue') && 'font-bold']}>Venue & Location</a>
         </li>
@@ -84,28 +83,28 @@ function isCurrent(...routePattern: string[]) {
       text-decoration: none;
     }
     // @media (min-width: 900px) {
-      & > nav {
-        & > div {
-          position: relative;
-          & > ul {
-            position: absolute;
-            left: -9001px;
-          }
-          &:hover > ul {
-            left: 0;
-          }
+    & > nav {
+      & > div {
+        position: relative;
+        & > ul {
+          position: absolute;
+          left: -9001px;
+        }
+        &:hover > ul {
+          left: 0;
+        }
 
-          & > ul > li {
-            border-bottom: 1px solid charter.$neutrals100;
-            &:last-child {
-              border-bottom: none;
-            }
-            & > a {
-              display: block;
-            }
+        & > ul > li {
+          border-bottom: 1px solid charter.$neutrals100;
+          &:last-child {
+            border-bottom: none;
+          }
+          & > a {
+            display: block;
           }
         }
       }
+    }
     // }
   }
 </style>
