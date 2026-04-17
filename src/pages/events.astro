@@ -1,0 +1,211 @@
+---
+import { Picture } from 'astro:assets'
+
+import Base from '../layouts/Base.astro'
+import Hero from '../components/sections/Hero.astro'
+import Section from '../components/Section.astro'
+import heroImage from '../assets/images/hero/events.jpg'
+
+import pic_starthere from '../assets/images/events/start_here.jpg'
+import pic_action from '../assets/images/events/action.png'
+import pic_panel from '../assets/images/events/propose_a_panel.jpg'
+import pic_join from '../assets/images/events/join.jpg'
+import pic_stage from '../assets/images/events/stage.jpg'
+
+import LucideFile from '~icons/lucide/file'
+import LucideDownload from '~icons/lucide/download'
+
+const downloads = [
+  {
+    name: 'How to panel.pdf',
+    size: '550.06KiB',
+    link: 'https://drive.google.com/file/d/1E3J7Lv-cWD1AeUnPLBSKTt5NeksQjRpd/view'
+  },
+  {
+    name: 'How to panel.mkv',
+    size: '145.76MiB',
+    link: 'https://drive.google.com/file/d/1leyocyV3Xlyk6f7wdllDIYZ4HGOmMGDO/view'
+  }
+]
+---
+
+<Base>
+  <Hero headline="Enter the Fluufff game" image={heroImage}>
+    <p>
+      From cosy gatherings to high-energy stage moments, our activities and events are where the convention truly comes
+      to life. Everything you see here is created by the community, for the community. Whether you're here to explore,
+      meet new people, learn something new, or take the stage yourself, there is always something happening around you.
+    </p>
+    <p>
+      Not sure where to start? You don't have to figure it all out right away. Just step in, look around, and follow
+      what feels fun.
+    </p>
+  </Hero>
+  <Section outerClass="bg-secondary-50">
+    <div class="order-1 lg:order-2">
+      <Picture
+        class="rounded-lg object-cover object-center h-full"
+        src={pic_starthere}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        widths={[400, 800, 1200]}
+      />
+    </div>
+    <div class="flex flex-col gap-4 justify-center order-2 lg:order-1">
+      <h2 class="font-atari text-2xl md:text-3xl">New player? Start here</h2>
+      <p>
+        If this is your first time at Flüüfff, this section is for you. You do not need any experience to join
+        activities. Many panels, workshops and events are beginner-friendly, and you are always welcome to simply sit
+        in, watch, and get a feel for things first. There is no pressure to participate actively unless you want to.<br
+        />
+        Here's a quick idea of the activities and events you might encounter during the convention:
+      </p>
+
+      <section>
+        <h3 class="uppercase text-xl md:text-2xl">Panels</h3>
+        <p>Talks, discussions or presentations where people share ideas, stories or knowledge.</p>
+      </section>
+
+      <section>
+        <h3 class="uppercase text-xl md:text-2xl">Workshops</h3>
+        <p>Hands-on sessions where you can learn or create something together.</p>
+      </section>
+
+      <section>
+        <h3 class="uppercase text-xl md:text-2xl">Meetups</h3>
+        <p>Casual gatherings to connect with others who share your interests.</p>
+      </section>
+
+      <section>
+        <h3 class="uppercase text-xl md:text-2xl">Big events</h3>
+        <p>Games, competitions and larger activities that bring a lot of people together.</p>
+      </section>
+
+      <section>
+        <h3 class="uppercase text-xl md:text-2xl">Stage performances</h3>
+        <p>Everything from heartfelt moments to chaotic fun during events like Shownight.</p>
+      </section>
+
+      <p>
+        Some activities may have limited space, but most are open to everyone. The full schedule will be announced
+        closer to the convention date, so you can plan your adventure ahead of time or just decide on the spot.
+      </p>
+    </div>
+  </Section>
+  <Section grid="grid-col-1 text-center justify-items-center" gap="gap-4">
+    <Picture
+      class="w-2xs"
+      src={pic_action}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
+      alt=""
+      widths={[200, 400]}
+    />
+    <h2 class="font-atari text-2xl md:text-3xl">Want to be part of the action?</h2>
+    <p>
+      You've seen the quests. You've met the players. You know what's possible.<br />
+      Now imagine adding your own quest to the game.
+    </p>
+    <p>
+      You can host your own panel, workshop or meet and greet, you can volunteer to team up with others to organize one
+      of the really big events, or you can show your talents on stage as part of the Shownight.<br />
+      Regardless if you want to do one or several of these, below you find more information and the corresponding forms.
+      Hope to hear from you soon, Player 1!
+    </p>
+    <p>
+      Unsure of how to plan and hold a panel? Feel free to check out this web lecture on how to panel and the
+      corresponding presentation.
+    </p>
+    <section class="flex flex-wrap text-left gap-4">
+      {
+        downloads.map((d) => (
+          <a
+            href={d.link}
+            class="flex-1 flex items-center gap-4 p-4 rounded-md bg-accent1-50 border border-accent1-200 no-underline text-nowrap"
+          >
+            <LucideFile />
+            <div class="flex-1">
+              <p class="font-bold">{d.name}</p>
+              <p>{d.size}</p>
+            </div>
+            <div class="ml-4 rounded-md flex gap-2 border border-accent1-500 bg-neutral-50 items-center p-2 text-accent1-500">
+              <LucideDownload />
+              <p>Download</p>
+            </div>
+          </a>
+        ))
+      }
+    </section>
+  </Section>
+
+  <Section outerClass="bg-secondary-50">
+    <div class="order-1 lg:order-2">
+      <Picture
+        class="rounded-lg object-cover object-center"
+        src={pic_panel}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        widths={[400, 800, 1200]}
+      />
+    </div>
+    <div class="flex flex-col gap-4 justify-center order-2 lg:order-1">
+      <h2 class="font-atari text-2xl md:text-3xl">Propose your own panel</h2>
+      <p>
+        If you have an idea you want to teach, a project you want to show or a social event you want to organize, this
+        is the form for you! Pitch your idea and we help you make it reality.<br />
+        Once you fill in the form, 1 of our panel coordinators will contact you and help you get everything planned out properly.
+        This person will also support you during the panel itself.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="order-2 lg:order-1">
+      <Picture
+        class="rounded-lg object-cover object-center"
+        src={pic_join}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        widths={[400, 800, 1200]}
+      />
+    </div>
+    <div class="flex flex-col gap-4 justify-center order-2 lg:order-1">
+      <h2 class="font-atari text-2xl md:text-3xl">Team up with others to make one of the bigger events happen</h2>
+      <p>
+        A furry convention lives from big events like the Fursuit Games and fun competitions. These events need many
+        paws to become reality, this is why we have this form! You just tell us which of the big events on our list you
+        would like to help organize and we will put you together with other interested Furs to make it happen.<br />
+        No worries, you will always have one of our panel coordinators to support you in the planning process and answer
+        any questions.
+      </p>
+    </div>
+  </Section>
+
+  <Section outerClass="bg-secondary-50">
+    <div class="order-1 lg:order-2">
+      <Picture
+        class="rounded-lg object-cover object-center"
+        src={pic_stage}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        alt=""
+        widths={[400, 800, 1200]}
+      />
+    </div>
+    <div class="flex flex-col gap-4 justify-center order-2 lg:order-1">
+      <h2 class="font-atari text-2xl md:text-3xl">Show your talents on stage</h2>
+      <p>
+        Are you ready to take the stage and share something unique with our attendees? Do you have a quirky talent, a
+        heartwarming story, or an unconventional performance that will leave a lasting impression? This is your chance
+        to shine!
+      </p>
+      <p>
+        You can propose a solo act or perform as a group, everything is possible, just let us know what you would like
+        to show.
+      </p>
+    </div>
+  </Section>
+</Base>
