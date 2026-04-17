@@ -2,16 +2,16 @@
 import { Picture } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
 interface Props {
-  headline?: string
-  sideImage?: ImageMetadata
-  right?: boolean
-  markdown?: boolean
-  wider?: boolean
-  id?: string
-  bg?: 'primary' | 'secondary' | 'primary-dark'
-  class?: string
-  pictureclass?: string
-  alignContent?: 'start' | 'end'
+  headline?: string | undefined
+  sideImage?: ImageMetadata | undefined
+  right?: boolean | undefined
+  markdown?: boolean | undefined
+  wider?: boolean | undefined
+  id?: string | undefined
+  bg?: 'primary' | 'secondary' | 'primary-dark' | undefined
+  class?: string | undefined
+  pictureclass?: string | undefined
+  alignContent?: 'start' | 'end' | undefined
 }
 
 const { headline, markdown, bg, sideImage, right, id, wider, alignContent, pictureclass = '' } = Astro.props
