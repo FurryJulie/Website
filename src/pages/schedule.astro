@@ -1,0 +1,196 @@
+---
+import Base from '../layouts/Base.astro'
+import LucideClock from '~icons/lucide/clock'
+import LucideMapPin from '~icons/lucide/map-pin'
+import LucideUserRound from '~icons/lucide/user-round'
+
+import { getCollection } from 'astro:content'
+import { DateTime } from 'luxon'
+import Section from '../components/Section.astro'
+
+const openLocations = await getCollection('scheduleOpenLocations')
+const order = ['Bar', 'Fursuit Lounge', 'Photoshoot', "Dealer's Den"]
+openLocations.sort((a, b) => order.indexOf(a.data.name) - order.indexOf(b.data.name))
+
+const raw_tags = await getCollection('scheduleTags')
+const raw_locations = await getCollection('scheduleLocations')
+const raw_events = await getCollection('scheduleEvents')
+
+function shortenTime(time: string) {
+  const date = DateTime.fromISO(time)
+  let h = `${date.hour}`
+  if (date.hour < 10) {
+    h = `0${h}`
+  }
+  let m = `${date.minute}`
+  if (date.minute < 10) {
+    m = `0${m}`
+  }
+  return `${h}:${m}`
+}
+
+const all_events = raw_events.map((re) => {
+  const start_unix = DateTime.fromISO(`${re.data.day}T${re.data.start_time}`).toUnixInteger()
+  return {
+    title: re.data.title,
+    description: re.data.description,
+    host: re.data.host_name,
+    start_unix,
+    day: re.data.day,
+    start: shortenTime(re.data.start_time),
+    end: shortenTime(re.data.end_time),
+    location: raw_locations.find((l) => l.id == re.data.schedule_location.id.toString())?.data.name,
+    tags: re.data.schedule_tags.map((t) => {
+      const rt = raw_tags.find((rt) => rt.id == t.id.toString())
+      if (!rt) {
+        return undefined
+      } else {
+        return { emoji: rt.data.emoji, name: rt.data.name }
+      }
+    })
+  }
+})
+all_events.sort((a, b) => a.start_unix - b.start_unix)
+
+const days = all_events.reduce(
+  (all, e) => {
+    if (!all.find((d) => d.date == e.day)) {
+      const parsed = DateTime.fromISO(e.day).setLocale('en-US')
+      const weekday = parsed.toLocaleString({ weekday: 'long' })
+      const shortdate = parsed.toLocaleString({ day: 'numeric', month: 'short' })
+      all.push({ date: e.day, weekday, shortdate })
+    }
+    return all
+  },
+  [] as { date: string; weekday: string; shortdate: string }[]
+)
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+days.sort((a, b) => (a.date as any) - (b.date as any))
+
+const first_date = days[0]!.date
+const buttonid = Math.random().toString(36).slice(2, 11)
+const eventsid = Math.random().toString(36).slice(2, 11)
+---
+
+<Base>
+  <Section outerClass="bg-secondary-50" grid="grid-col-1 justify-items-center" gap="gap-4">
+    <h2 class="font-atari text-2xl md:text-3xl">Program</h2>
+    <p>Your guide to five days of Flüüfff, from the first day's warm-up to the last day's closing hugs.</p>
+    <div data-id={buttonid} class="flex flex-wrap gap-2">
+      {
+        days.map((d) => (
+          <button data-date={d.date} class="p-2 text-neutral-50 bg-accent1-500">
+            {d.weekday}, {d.shortdate}
+          </button>
+        ))
+      }
+    </div>
+    <div data-id={eventsid} class="flex flex-col w-full gap-4">
+      {
+        all_events.map((e) => (
+          <section data-date={e.day} class="hidden flex flex-col gap-4 p-4 shadow-md bg-neutral-50 rounded-md">
+            <div class="flex justify-between items-center">
+              <p class="flex items-center gap-2">
+                <LucideClock />
+                {e.start} - {e.end}
+              </p>
+              <p class="bg-orange-200 rounded-sm p-1">upcoming</p>
+            </div>
+            <h3 class="font-atari font-bold text-xl md:text-2xl">{e.title}</h3>
+            <div class="flex justify-between items-center">
+              <p class="flex items-center gap-2">
+                <LucideMapPin />
+                {e.location || 'Unknown'}
+              </p>
+              <p class="flex items-center gap-2">
+                <LucideUserRound />
+                {e.host || 'Unknown'}
+              </p>
+            </div>
+            <p>{e.description}</p>
+            <hr />
+            <div class="flex flex-wrap">
+              {e.tags
+                .filter((t) => t)
+                .map((t) => (
+                  <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">
+                    {t!.name}
+                  </p>
+                ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+  <Section grid="grid-col-1 justify-items-center" gap="gap-6">
+    <h2 class="font-atari text-2xl md:text-3xl text-center">Event labels explained</h2>
+    <p class="text-center">
+      Look out for these icons during the convention. They help you find events that match your vibe.
+    </p>
+    <div class="grid grid-cols-[auto_1fr] gap-6 items-center mt-4">
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">
+        educational
+      </p>
+      <p>Hosted by a (semi-)professional or the result of deep research. Focused on informing and teaching.</p>
+
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">
+        Fursuit-friendly
+      </p>
+      <p>Includes amenities for fursuiters (fans, water stations) or adjusted pacing/materials.</p>
+
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">Workshop</p>
+      <p>Requires active participation.</p>
+
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">NSFW</p>
+      <p>
+        Elements or themes related to fetishes or related topics. However, this event is strictly non-sexual so no
+        nudity is shown.
+      </p>
+
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">
+        Flashing lights
+      </p>
+      <p>This event will feature flashing lights.</p>
+
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">Sporty</p>
+      <p>Requires a certain level of movement. Bring comfy clothes, water, and a towel.</p>
+
+      <!-- <p class="uppercase">Charity</p>
+            <p>Event is organized in cooperation with our chosen charity.</p> -->
+
+      <p class="p-2 flex items-center gap-2 uppercase bg-accent1-50 border rounded-sm border-accent1-200">
+        Open door event
+      </p>
+      <p>Can be joined and left at any point during its duration.</p>
+    </div>
+  </Section>
+</Base>
+
+<script is:inline define:vars={{ buttonid, eventsid, first_date }}>
+  const buttons = document.querySelectorAll(`[data-id="${buttonid}"] > button`)
+  const events = document.querySelectorAll(`[data-id="${eventsid}"] > section`)
+
+  let active_date = first_date
+
+  const setActiveDate = (d) => {
+    active_date = d
+    buttons.forEach((b) => {
+      b.classList.remove('bg-accent1-500')
+      b.classList.remove('bg-accent1-800')
+      b.classList.add(b.dataset.date == d ? 'bg-accent1-800' : 'bg-accent1-500')
+    })
+    events.forEach((e) => {
+      if (e.dataset.date == d) {
+        e.classList.remove('hidden')
+      } else {
+        e.classList.add('hidden')
+      }
+    })
+  }
+  setActiveDate(active_date)
+
+  buttons.forEach((b) => {
+    b.addEventListener('click', () => setActiveDate(b.dataset.date))
+  })
+</script>

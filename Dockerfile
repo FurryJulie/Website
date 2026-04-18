@@ -1,13 +1,14 @@
 FROM dhi.io/deno:2.7.11-dev AS builder
 
 ARG SITE=https://www.next.fluufff.org
+ARG STRAPI_URI=https://cms.fluufff.org/api/
 ARG SITE_BASE_URL=/
-ARG NODE_ENV=development
 
 WORKDIR /app
 COPY . .
 RUN deno install --allow-scripts
-RUN deno task build
+RUN --mount=type=secret,id=STRAPI_TOKEN,env=STRAPI_TOKEN \
+    deno task build
 
 
 FROM nginx:1.29.4

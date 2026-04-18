@@ -25,6 +25,12 @@
     .bg-#{$name}-#{$size} {
       background-color: map.get($swatch, $size);
     }
+    .hover\:bg-#{$name}-#{$size}:hover {
+      background-color: map.get($swatch, $size);
+    }
+    .fill-#{$name}-#{$size} {
+      fill: map.get($swatch, $size);
+    }
     svg .bg-#{$name}-#{$size} {
       fill: map.get($swatch, $size);
     }
