@@ -108,7 +108,7 @@ const eventsid = Math.random().toString(36).slice(2, 11)
               </p>
             </div>
             <p>{e.description}</p>
-            <hr />
+            {e.tags.length != 0 ? <hr /> : ''}
             <div class="flex flex-wrap">
               {e.tags
                 .filter((t) => t)
